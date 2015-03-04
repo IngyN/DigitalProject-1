@@ -73,15 +73,16 @@ void Implicant:: printBinary(short k)
     cout << bit;
 }
 
-void Implicant:: printImpl() //SMALL ISSUE HERE , THE COMMA PRINTS ONE TOO MANY TIMES
+void Implicant:: printImpl() 
 {
     cout << "(";
-    for(set <short> :: iterator i= this->minterms.begin(); i!=this->minterms.end(); i++)
+    set <short> :: iterator i= this->minterms.begin();
+    cout << *i;
+    i++;
+    
+    for( ; i!=this->minterms.end(); i++)
     {
-        if(i !=this->minterms.end())
-            cout << *i << ",";
-        else
-            cout << *i;
+            cout << "," << *i;
     }
     cout << ")";
 }
