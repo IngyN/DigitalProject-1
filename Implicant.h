@@ -37,6 +37,8 @@ public:
     Implicant * combine(Implicant &);
     bool areEqual(Implicant &);
     short returnFirstMinterm();
+    bool isPowerof2(short a);
+    
 };
 
 #endif /* defined(__DigitalProject_1__Implicant__) */

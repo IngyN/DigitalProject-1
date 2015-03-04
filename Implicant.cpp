@@ -44,9 +44,21 @@ void Implicant:: setCombinedToFalse()
 
 short Implicant:: numberOfOnes()
 {
-    short count =0;
+    unsigned short count =1; short result=0;
     
-    while ()
+    if (minterms.size()>1)
+    {
+        for( set <short> ::iterator i = minterms.begin(); i!=minterms.end(); i++)
+            count= count & (*i);
+    }
+    
+    while (count !=0)
+    {
+        result = count%2;
+        count =count >>1;
+    }
+    
+    return result;
 }
 
 void Implicant:: printBinary()
@@ -82,6 +94,11 @@ bool Implicant::areEqual(Implicant& other)
     }
     
     return flag;
+}
+
+bool Implicant:: isPowerof2(short a)
+{
+        return ((a &(a-1)) ==0);
 }
 
 
