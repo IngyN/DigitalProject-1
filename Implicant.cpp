@@ -8,6 +8,7 @@
 
 #include "Implicant.h"
 #include <string>
+#include <bitset>
 
 Implicant:: Implicant()
 {
@@ -42,6 +43,11 @@ void Implicant:: setCombinedToFalse()
     combined = false;
 }
 
+void Implicant:: setCombinedToTrue()
+{
+    combined = true;
+}
+
 short Implicant:: numberOfOnes()
 {
     unsigned short count =1; short result=0;
@@ -61,19 +67,42 @@ short Implicant:: numberOfOnes()
     return result;
 }
 
-void Implicant:: printBinary()
+void Implicant:: printBinary(short k)
 {
-    
+    bitset<16> bit(k);
+    cout << bit;
 }
 
-void Implicant:: printImpl()
+void Implicant:: printImpl() //SMALL ISSUE HERE , THE COMMA PRINTS ONE TOO MANY TIMES
 {
-    
+    cout << "(";
+    for(set <short> :: iterator i= this->minterms.begin(); i!=this->minterms.end(); i++)
+    {
+        if(i !=this->minterms.end())
+            cout << *i << ",";
+        else
+            cout << *i;
+    }
+    cout << ")";
 }
 
-Implicant * Implicant:: combine(Implicant &)
+Implicant * Implicant:: combineWith(Implicant &other)
 {
-    return NULL;
+    Implicant * temp;
+    for (set <short> :: iterator i= this->minterms.begin(),j=other.minterms.begin(); i!=this->minterms.end(); i++, j++)
+    {
+        temp->minterms.insert(*i);
+        temp->minterms.insert(*j);
+    }
+    
+    for (set <short> :: iterator i= this->diff.begin(),j=other.diff.begin(); i!=this->diff.end(); i++, j++)
+    {
+        temp->diff.insert(*i);
+        temp->diff.insert(*j);
+    }
+    temp->setCombinedToTrue();
+    
+    return temp;
 }
 
 bool Implicant::areEqual(Implicant& other)

@@ -31,10 +31,13 @@ public:
     
     bool isCombined();
     void setCombinedToFalse();
+    void setCombinedToTrue();
+    
     short numberOfOnes();
-    void printBinary();
+    void printBinary(short);
     void printImpl();
-    Implicant * combine(Implicant &);
+    
+    Implicant * combineWith(Implicant &);
     bool areEqual(Implicant &);
     short returnFirstMinterm();
     bool isPowerof2(short a);
