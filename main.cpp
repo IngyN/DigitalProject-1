@@ -11,6 +11,8 @@
 
 using namespace std;
 
+bool isPowerof2(short);
+
 int main()
 {
     set<short> A;
@@ -22,4 +24,9 @@ int main()
     {
         cout << i << endl;
     }
+}
+
+bool isPowerof2(short a)
+{
+    return ((a &(a-1)) ==0);
 }

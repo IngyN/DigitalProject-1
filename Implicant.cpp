@@ -14,15 +14,15 @@ Implicant:: Implicant()
     
 }
 
-Implicant:: Implicant(const Implicant &)
+Implicant:: Implicant(const Implicant & other)
 {
-    
+    this->combined= other.combined;
+    this->diff=other.diff;
+    this->minterms=other.minterms;
 }
 
 Implicant:: ~Implicant()
-{
-    
-}
+{}
 
 short Implicant:: returnFirstMinterm()
 {
@@ -44,8 +44,9 @@ void Implicant:: setCombinedToFalse()
 
 short Implicant:: numberOfOnes()
 {
-    return 0;
-    //minterms.subs
+    short count =0;
+    
+    while ()
 }
 
 void Implicant:: printBinary()
