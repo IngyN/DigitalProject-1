@@ -25,7 +25,7 @@ Implicant:: Implicant(const Implicant & other)
 Implicant:: ~Implicant()
 {}
 
-short Implicant:: returnFirstMinterm()
+short Implicant:: returnFirstMinterm() const
 {
     set<short>::iterator i= minterms.begin();
     
@@ -73,7 +73,7 @@ void Implicant:: printBinary(short k)
     cout << bit;
 }
 
-void Implicant:: printImpl() 
+void Implicant:: printImpl()
 {
     cout << "(";
     set <short> :: iterator i= this->minterms.begin();
@@ -82,26 +82,35 @@ void Implicant:: printImpl()
     
     for( ; i!=this->minterms.end(); i++)
     {
-            cout << "," << *i;
+        cout << "," << *i;
     }
     cout << ")";
 }
 
 Implicant * Implicant:: combineWith(Implicant &other)
 {
-    Implicant * temp;
+    Implicant * temp = new Implicant;
+    
     for (set <short> :: iterator i= this->minterms.begin(),j=other.minterms.begin(); i!=this->minterms.end(); i++, j++)
     {
         temp->minterms.insert(*i);
         temp->minterms.insert(*j);
     }
     
-    for (set <short> :: iterator i= this->diff.begin(),j=other.diff.begin(); i!=this->diff.end(); i++, j++)
+    for (set <short> :: iterator i= this->diff.begin(); i!=this->diff.end(); i++)
     {
         temp->diff.insert(*i);
-        temp->diff.insert(*j);
     }
-    temp->setCombinedToTrue();
+    
+    // We add the new difference
+    
+    temp->diff.insert(abs(other.returnFirstMinterm()-this->returnFirstMinterm()));
+    
+    // Old one
+    other.setCombinedToTrue();
+    this->setCombinedToTrue();
+    
+    temp->setCombinedToFalse();
     
     return temp;
 }
@@ -126,9 +135,34 @@ bool Implicant::areEqual(Implicant& other)
     return flag;
 }
 
+bool Implicant :: setsAreEqual(set<short> & S, set<short> & S2)
+{
+    
+    if (S.size()!= S2.size())
+        return false;
+    
+    else
+        for (set <short> :: iterator i= S.begin(), j=S2.begin(); i!=S.end(); i++, j++)
+        {
+            if(*i != *j)
+                return false;
+        }
+    
+    return true;
+}
 bool Implicant:: isPowerof2(short a)
 {
-        return ((a &(a-1)) ==0);
+    return ((a &(a-1)) ==0);
 }
 
-
+bool Implicant:: canCombine(Implicant& other) const
+{
+    if (!setsAreEqual(diff, other.diff))
+        return false;
+    
+    if(isPowerof2(abs(this->returnFirstMinterm()-other.returnFirstMinterm())))
+        return true;
+    else
+        return false;
+}
+           

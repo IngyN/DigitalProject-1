@@ -39,8 +39,10 @@ public:
     
     Implicant * combineWith(Implicant &);
     bool areEqual(Implicant &);
-    short returnFirstMinterm();
-    bool isPowerof2(short a);
+    short returnFirstMinterm() const;
+    static bool isPowerof2(short a);
+    bool canCombine (Implicant & other) const;
+    static bool setsAreEqual (set<short> &, set <short>&);
     
 };
 
