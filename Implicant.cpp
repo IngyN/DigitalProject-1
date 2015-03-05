@@ -150,6 +150,7 @@ bool Implicant :: setsAreEqual(set<short> & S, set<short> & S2)
     
     return true;
 }
+
 bool Implicant:: isPowerof2(short a)
 {
     return ((a &(a-1)) ==0);

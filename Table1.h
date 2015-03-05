@@ -18,7 +18,9 @@ class Table1
 private:
     
     //which data structure? another set >> a set of implicants?
+    // I don't think we should use a set for the sake of being able to retrieve and  access elements freely
     //how do we account for the different 'levels'?
+    // 2D structure: the first index represents the number of ones
     
 public:
     void traverseAndCompare();
