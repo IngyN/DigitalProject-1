@@ -57,6 +57,22 @@ void Table1::traverseAndCompare(bool initial)
     }
 }
 
+// loops over one vector if one of the elements were combined put in final
+void Table1::putInFinal (short index, bool init)
+{
+    if(init)
+    {
+        for( Implicant i: initial[index])
+            if (!i.isCombined() )//&& this->implicantDoesNotExist(i.numberOfOnes(), i, init))
+                final[i.numberOfOnes()].push_back(i);
+    }
+    else
+        for( Implicant i: intermediate[index])
+            if (!i.isCombined() )//&& this->implicantDoesNotExist(i.numberOfOnes(), i, init))
+                final[i.numberOfOnes()].push_back(i);
+        
+}
+
 void Table1::combine(short index, bool initial)
 {
     if(initial)

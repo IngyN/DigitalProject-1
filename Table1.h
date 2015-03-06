@@ -35,6 +35,7 @@ public:
     void traverseAndCompare(bool initial);
     void combine(short index, bool initial);
     bool implicantDoesNotExist(short index, Implicant &, bool initial);
+    void putInFinal (short, bool);
     //function to traverse column and compare in the 'initial'
     //function to call the implicant combine function and shift implicant to 'intermediate'?
     //function to reset all combined implicants in 'intermediate' column to uncombined ie return to initial stage
