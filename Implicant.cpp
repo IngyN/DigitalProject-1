@@ -12,7 +12,13 @@
 
 Implicant:: Implicant()
 {
-    
+    combined =false;
+}
+
+Implicant::Implicant(short a)
+{
+    combined=false;
+    this->minterms.insert(a);
 }
 
 Implicant:: Implicant(const Implicant & other)
@@ -75,6 +81,7 @@ void Implicant:: printBinary(short k)
 
 void Implicant:: printImpl()
 {
+    // WE NEED TO ACCOUNT FOR THE Xs (differences)
     cout << "(";
     set <short> :: iterator i= this->minterms.begin();
     cout << *i;
@@ -135,7 +142,7 @@ bool Implicant::areEqual(Implicant& other)
     return flag;
 }
 
-bool Implicant :: setsAreEqual(set<short> & S, set<short> & S2)
+bool Implicant :: setsAreEqual(const set<short> & S, const set<short> & S2)
 {
     
     if (S.size()!= S2.size())

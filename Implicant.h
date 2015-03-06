@@ -22,27 +22,27 @@ private:
     set <short> diff;
     bool combined;
     
-    
-    
 public:
     Implicant();
+    Implicant(short);
     Implicant(const Implicant &);
     ~Implicant();
     
     bool isCombined();
     void setCombinedToFalse();
     void setCombinedToTrue();
+    bool canCombine (Implicant & other) const;
+    bool areEqual(Implicant &);
     
     short numberOfOnes();
     void printBinary(short);
     void printImpl();
     
     Implicant * combineWith(Implicant &);
-    bool areEqual(Implicant &);
+    
     short returnFirstMinterm() const;
     static bool isPowerof2(short a);
-    bool canCombine (Implicant & other) const;
-    static bool setsAreEqual (set<short> &, set <short>&);
+    static bool setsAreEqual (const set<short> &, const set <short>&);
     
 };
 
