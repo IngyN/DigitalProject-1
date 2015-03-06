@@ -10,7 +10,7 @@
 
 Table1::Table1()
 {
-    
+    done =false;
 }
 
 Table1::~Table1()
@@ -32,27 +32,41 @@ void Table1::insert(short a)
 // n the new implicant is set to not combined.
 // Does not insert duplicates.
 
-void Table1::traverseAndCompare(bool initial)
+void Table1::traverseAndCompare()
 {
-    if (initial)
+    bool initial= true;
+    
+    while (!done)
     {
-        if(this->initial.size()>0)
-        {
-            for(int i=0; i< this->initial.size()-1; i++)
-            {
-                combine(i, initial);
-            }
-        }
+        done =true;
         
-    }
-    else
-    {
-        if(this->intermediate.size()>0)
+        if (initial)
         {
-            for(int i=0; i< this->intermediate.size()-1; i++)
+            if(this->initial.size()>0)
             {
-                combine(i, initial);
+                for(int i=0; i< this->initial.size()-1; i++)
+                {
+                    done = !(combine(i, initial));
+                    this->putInFinal(i, initial);
+                }
             }
+            
+            initial=false;
+            
+        }
+        else
+        {
+            if(this->intermediate.size()>0)
+            {
+                for(int i=0; i< this->intermediate.size()-1; i++)
+                {
+                    done=!(combine(i, initial));
+                    this->putInFinal(i, initial);
+                }
+            }
+            
+            initial =false;
+
         }
     }
 }
@@ -70,11 +84,13 @@ void Table1::putInFinal (short index, bool init)
         for( Implicant i: intermediate[index])
             if (!i.isCombined() )//&& this->implicantDoesNotExist(i.numberOfOnes(), i, init))
                 final[i.numberOfOnes()].push_back(i);
-        
+    
 }
 
-void Table1::combine(short index, bool initial)
+bool Table1::combine(short index, bool initial)
 {
+    bool flag= false;
+    
     if(initial)
     {
         intermediate.clear();
@@ -85,6 +101,7 @@ void Table1::combine(short index, bool initial)
                 for (Implicant i: this->initial[index+1])
                     if (i.canCombine(j))
                     {
+                        flag =true;
                         Implicant n= *i.combineWith(j);
                         if (this->implicantDoesNotExist(n.numberOfOnes(), n, initial))
                             this->intermediate[n.numberOfOnes()].push_back(n);
@@ -101,6 +118,7 @@ void Table1::combine(short index, bool initial)
                 for (Implicant i: this->intermediate[index+1])
                     if (i.canCombine(j))
                     {
+                        flag =true;
                         Implicant n= *i.combineWith(j);
                         
                         if (this->implicantDoesNotExist(n.numberOfOnes(), n, initial))
@@ -109,7 +127,9 @@ void Table1::combine(short index, bool initial)
         }
         
     }
-
+    
+    return flag;
+    
 }
 
 bool Table1::implicantDoesNotExist(short index, Implicant & n, bool initial)
