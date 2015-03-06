@@ -124,14 +124,13 @@ Implicant * Implicant:: combineWith(Implicant &other)
 
 bool Implicant::areEqual(Implicant& other)
 {
-    bool flag = true;
     
     if(other.minterms.size()!= this->minterms.size())
     {
         for (set <short> :: iterator i= minterms.begin(), j=other.minterms.begin(); i!=minterms.end(); i++, j++)
         {
             if(*i != *j)
-                flag = false;
+                return false;
         }
     }
     else
@@ -139,7 +138,7 @@ bool Implicant::areEqual(Implicant& other)
         return false;
     }
     
-    return flag;
+    return true;
 }
 
 bool Implicant :: setsAreEqual(const set<short> & S, const set<short> & S2)
@@ -172,5 +171,10 @@ bool Implicant:: canCombine(Implicant& other) const
         return true;
     else
         return false;
+}
+
+bool Implicant:: operator==(Implicant & other)
+{
+    return this->areEqual(other);
 }
            

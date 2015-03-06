@@ -44,6 +44,8 @@ public:
     static bool isPowerof2(short a);
     static bool setsAreEqual (const set<short> &, const set <short>&);
     
+    bool operator == (Implicant &);
+    
 };
 
 #endif /* defined(__DigitalProject_1__Implicant__) */

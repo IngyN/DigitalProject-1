@@ -21,6 +21,7 @@ private:
     vector <vector<Implicant>> initial;
     vector <vector<Implicant>> intermediate;
     vector <vector<Implicant>> final;
+    bool done;
     
     //which data structure? another set >> a set of implicants?
     // I don't think we should use a set for the sake of being able to retrieve and  access elements freely
@@ -28,8 +29,12 @@ private:
     // 2D structure: the first index represents the number of ones
     
 public:
-    void insert ();
+    Table1();
+    ~Table1();
+    void insert (short);
     void traverseAndCompare();
+    void combine(short index, bool initial);
+    bool implicantDoesNotExist(short index, Implicant &, bool initial);
     //function to traverse column and compare in the 'initial'
     //function to call the implicant combine function and shift implicant to 'intermediate'?
     //function to reset all combined implicants in 'intermediate' column to uncombined ie return to initial stage
