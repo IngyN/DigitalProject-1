@@ -32,7 +32,7 @@ public:
     Table1();
     ~Table1();
     void insert (short);
-    void traverseAndCompare();
+    void traverseAndCompare(bool initial);
     void combine(short index, bool initial);
     bool implicantDoesNotExist(short index, Implicant &, bool initial);
     //function to traverse column and compare in the 'initial'

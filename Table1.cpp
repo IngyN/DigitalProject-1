@@ -18,6 +18,7 @@ Table1::~Table1()
     
 }
 
+//Initial insert of the individual non-combined implicants
 void Table1::insert(short a)
 {
     Implicant one (a);
@@ -30,6 +31,31 @@ void Table1::insert(short a)
 // i and j are set to combined
 // n the new implicant is set to not combined.
 // Does not insert duplicates.
+
+void Table1::traverseAndCompare(bool initial)
+{
+    if (initial)
+    {
+        if(this->initial.size()>0)
+        {
+            for(int i=0; i< this->initial.size()-1; i++)
+            {
+                combine(i, initial);
+            }
+        }
+        
+    }
+    else
+    {
+        if(this->intermediate.size()>0)
+        {
+            for(int i=0; i< this->intermediate.size()-1; i++)
+            {
+                combine(i, initial);
+            }
+        }
+    }
+}
 
 void Table1::combine(short index, bool initial)
 {
