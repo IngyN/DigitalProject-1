@@ -65,7 +65,7 @@ void Table1::traverseAndCompare()
                 }
             }
             
-            initial =false;
+            initial =true;
 
         }
     }
