@@ -11,11 +11,16 @@
 
 #include "Implicant.h"
 #include <string>
+#include <vector>
 using namespace std;
 
 class Table1
 {
 private:
+    
+    vector <vector<Implicant>> initial;
+    vector <vector<Implicant>> intermediate;
+    vector <vector<Implicant>> final;
     
     //which data structure? another set >> a set of implicants?
     // I don't think we should use a set for the sake of being able to retrieve and  access elements freely
@@ -23,6 +28,7 @@ private:
     // 2D structure: the first index represents the number of ones
     
 public:
+    void insert ();
     void traverseAndCompare();
     //function to traverse column and compare in the 'initial'
     //function to call the implicant combine function and shift implicant to 'intermediate'?
