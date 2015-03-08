@@ -17,11 +17,12 @@ class Table2
     
 private:
     
-    vector <short> minterms;
-    vector <Implicant> primeImplicants;
-    vector<Implicant> Essentials;
-    char ** table;
-    
+    //vector <short> minterms;
+    //vector <Implicant> primeImplicants;
+    vector<int> Essentials;
+    bool ** table;
+    int rows;
+    int columns;
     
 public:
     
