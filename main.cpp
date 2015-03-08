@@ -14,6 +14,8 @@ using namespace std;
 #include "Table1.h"
 //bool isPowerof2(short);
 
+bool existsIn(short, vector<short> &) ;
+
 int main()
 {
     
@@ -30,8 +32,8 @@ int main()
     
     short temp,counter=0;
     cout << "Please enter the minterms of the function.\n";
-   do
-   {
+    do
+    {
        cin >>temp;
        while(temp<0 ||temp>variables)
         {
@@ -41,7 +43,7 @@ int main()
        if(temp!=-1)
         minterms.push_back(temp);
        counter++;
-   }while(temp!=-1 && counter<variables);
+    }while(temp!=-1 && counter<variables);
     
     
     vector <short> dontcares;
@@ -50,7 +52,7 @@ int main()
    do
     {
         cin >>temp;
-        while(temp<0 ||temp>variables)
+        while(temp<0 ||temp>variables||existsIn(temp,minterms))
         {
             cout << "The number you entered was inappropriate please enter an integer from 0 to " << variables<<".\n";
             cin >> temp;
@@ -70,8 +72,25 @@ int main()
         tester.insert(minterms[i]);
     
     tester.traverseAndCompare();
-    
-    
+}
+
+bool existsInMinterms(short k, vector<short> & minterms)
+{
+    bool found =false;
+    for(int i=0;i<minterms.size()&& found ==false;i++)
+    {
+        if(k== minterms[i])
+        {
+            found = true;
+        }
+        
+    }
+    return found;
+}
+
+
+
+
 //    set<short> A;
 //    A.insert(5);
 //    A.insert(3);
@@ -93,7 +112,7 @@ int main()
 //    {
 //        cout << i;
 //    }
-}
+
 
 //bool isPowerof2(short a)
 //{
