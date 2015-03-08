@@ -54,7 +54,10 @@ int main()
         cin >>temp;
         while(temp<0 ||temp>variables||existsIn(temp,minterms))
         {
-            cout << "The number you entered was inappropriate please enter an integer from 0 to " << variables<<".\n";
+            if(existsIn(temp,minterms))
+                cout << "This number has already been specified as a minterm";
+            else
+                cout << "The number you entered was inappropriate please enter an integer from 0 to " << variables<<".\n";
             cin >> temp;
         }
         if(temp!=-1)
@@ -62,10 +65,15 @@ int main()
         counter++;
     }while(temp!=-1 && counter<variables-minterms.size());
     
+    
+    
     for(int i=0;i<dontcares.size();i++)
     {
         minterms.push_back(dontcares[i]);
     }
+    
+    
+    
     
     Table1 tester;
     for(int i=0;i<minterms.size();i++)
