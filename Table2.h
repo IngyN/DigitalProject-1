@@ -25,7 +25,7 @@ private:
     
 public:
     
-    Table2(vector<Implicant> & , vector<Implicant> &);
+    Table2(vector<Implicant> & , vector<short> &);
     ~Table2();
     
     void reduceDominatingRows();

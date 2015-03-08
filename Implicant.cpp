@@ -173,6 +173,18 @@ bool Implicant:: canCombine(Implicant& other) const
         return false;
 }
 
+bool Implicant::contains(short k)
+{
+    for(set <short> :: iterator i= this->minterms.begin(); i!=this->minterms.end(); i++)
+    {
+        if (*i==k)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool Implicant:: operator==(Implicant & other)
 {
     return this->areEqual(other);
