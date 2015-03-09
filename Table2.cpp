@@ -48,7 +48,7 @@ void Table2:: reduce()
 
 bool Table2::reduceDominatingRows()
 {
-    vector<short> * covered = new vector<short>, * covered2 = new vector <short>;
+    vector<short> * covered = NULL, * covered2 = NULL;
     bool done=true;
     
     for(int i=0; i<primeImplicants.size();i++)
@@ -56,10 +56,12 @@ bool Table2::reduceDominatingRows()
         covered->clear();
         covered2->clear();
         
+        if(covered) delete covered;
         covered= primeImplicants[i].returnMinterms();
         
         for(int j=i+1;j<primeImplicants.size(); j++)
         {
+            if(covered2) delete covered2;
             covered2= primeImplicants[j].returnMinterms();
             
             if(vectorDominates(covered, covered2))
@@ -81,6 +83,8 @@ bool Table2::reduceDominatingRows()
             }
         }
     }
+    
+    delete covered; delete covered2;
     return done;
     
 }
@@ -144,7 +148,7 @@ bool Table2::reduceDominatingColumns()
             }
         }
     }
-    
+    delete covered; delete covered2;
     return done;
 }
 
