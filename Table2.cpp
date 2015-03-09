@@ -9,8 +9,10 @@
 #include "Table2.h"
 
 
-Table2::Table2(vector<Implicant> & primes, vector<short> & minterms)
+Table2::Table2(vector<Implicant> & primes, vector<short> & mintermsLocal)
 {
+    primeImplicants=primes;
+    minterms=mintermsLocal;
     rows=primes.size();
     columns = minterms.size();
     table = new bool*[rows];
@@ -42,13 +44,20 @@ void Table2::reduceDominatingRows()
 
 void Table2::reduceDominatingColumns()
 {
-    
+    for(int i=0; i<columns; i++)
+    {
+        
+        for(int j=0; j<rows; j++)
+        {
+        
+            
+        }
 }
 
 void Table2::findEssentialPrimeImplicants()
 {
     bool onlyOne;
-    int essenRow;
+    int essenRow=0;
     for(int i=0; i<columns; i++)
     {
         onlyOne =false;
@@ -66,7 +75,7 @@ void Table2::findEssentialPrimeImplicants()
             }
         }
         if(onlyOne==true)
-            Essentials.push_back(essenRow);
+            Essentials.push_back(primeImplicants[essenRow]);
     }
 }
 

@@ -17,9 +17,9 @@ class Table2
     
 private:
     
-    //vector <short> minterms;
-    //vector <Implicant> primeImplicants;
-    vector<int> Essentials;
+    vector <short> minterms;
+    vector <Implicant> primeImplicants;
+    vector<Implicant> Essentials;
     bool ** table;
     int rows;
     int columns;

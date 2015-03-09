@@ -10,11 +10,13 @@
 #include <set>
 #include <vector>
 using namespace std;
-//#include "Implicant.h"
+#include "Implicant.h"
 #include "Table1.h"
 //bool isPowerof2(short);
 
 bool existsIn(short, vector<short> &) ;
+void inputMinterms(vector<short>&, short);
+void inputDontCares(vector<short>&, vector<short> &,short);
 
 int main()
 {
@@ -29,50 +31,16 @@ int main()
     }
     
     vector<short> minterms;
-    
-    short temp,counter=0;
-    cout << "Please enter the minterms of the function.\n";
-    do
-    {
-       cin >>temp;
-       while(temp<0 ||temp>variables)
-        {
-            cout << "The number you entered was inappropriate please enter an integer from 0 to " << variables<<".\n";
-            cin >> temp;
-        }
-       if(temp!=-1)
-        minterms.push_back(temp);
-       counter++;
-    }while(temp!=-1 && counter<variables);
-    
+    inputMinterms(minterms, variables);
     
     vector <short> dontcares;
-    cout << "Please enter the dont cares of the function.\n";
-    counter=0;
-   do
-    {
-        cin >>temp;
-        while(temp<0 ||temp>variables||existsIn(temp,minterms))
-        {
-            if(existsIn(temp,minterms))
-                cout << "This number has already been specified as a minterm";
-            else
-                cout << "The number you entered was inappropriate please enter an integer from 0 to " << variables<<".\n";
-            cin >> temp;
-        }
-        if(temp!=-1)
-            dontcares.push_back(temp);
-        counter++;
-    }while(temp!=-1 && counter<variables-minterms.size());
-    
-    
+    inputDontCares(dontcares, minterms,variables);
+
     
     for(int i=0;i<dontcares.size();i++)
     {
         minterms.push_back(dontcares[i]);
     }
-    
-    
     
     
     Table1 tester;
@@ -96,8 +64,46 @@ bool existsInMinterms(short k, vector<short> & minterms)
     return found;
 }
 
+void inputMinterms(vector<short>& minterms, short variables)
+{
+    short temp,counter=0;
+    cout << "Please enter the minterms of the function.\n";
+    do
+    {
+        cin >>temp;
+        while(temp<0 ||temp>variables)
+        {
+            cout << "The number you entered was inappropriate please enter an integer from 0 to " << variables<<".\n";
+            cin >> temp;
+        }
+        if(temp!=-1)
+            minterms.push_back(temp);
+        counter++;
+    }while(temp!=-1 && counter<variables);
+}
 
+void inputDontCares(vector<short>& dontcares, vector<short> & minterms,short variables)
+{
+    cout << "Please enter the dont cares of the function.\n";
+    short temp,counter=0;
+    do
+    {
+        cin >>temp;
+        while(temp<0 ||temp>variables||existsIn(temp,minterms))
+        {
+            if(existsIn(temp,minterms))
+                cout << "This number has already been specified as a minterm";
+            else
+                cout << "The number you entered was inappropriate please enter an integer from 0 to " << variables<<".\n";
+            cin >> temp;
+        }
+        if(temp!=-1)
+            dontcares.push_back(temp);
+        counter++;
+    }while(temp!=-1 && counter<variables-minterms.size());
+    
 
+}
 
 //    set<short> A;
 //    A.insert(5);
