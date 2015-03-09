@@ -45,6 +45,9 @@ void Table2::reduceDominatingRows()
     
     for(int i=0; i<primeImplicants.size();i++)
     {
+        covered.clear();
+        covered2.clear();
+        
         for (int k=0; k<minterms.size();k++)
             if(primeImplicants[i].contains(minterms[k]))
                 covered.push_back(minterms[k]);
@@ -54,15 +57,53 @@ void Table2::reduceDominatingRows()
             for (int k=0; k<minterms.size();k++)
                 if(primeImplicants[j].contains(minterms[k]))
                     covered2.push_back(minterms[k]);
-        } 
+            
+            if(vectorDominates(covered, covered2))
+                // code comes here if covered2 dominates covered.
+            {
+                // Delete row i
+                for(int l=0; l<minterms.size(); l++)
+                    table[l].reset(i);
+            }
+            
+            else if (vectorDominates(covered2, covered))
+            {
+                // code comes here if covered dominates covered2.
+                // Delete row j
+                for(int l=0; l<minterms.size(); l++)
+                    table[l].reset(j);
+            }
+        }
     }
+    
+}
 
+// returns true if two dominates one
+bool Table2::vectorDominates(vector<short> & one, vector<short> & two)
+{
+    for (short i: one)
+        if(!vectorFind(two, i))
+            return false;
+    
+    if (one.size()<two.size())
+        return true;
+    
+    else return false;
+    
+}
 
+bool Table2::vectorFind(vector<short> & v, short e)
+{
+    for (short i: v)
+        if(e==i)
+            return true;
+    
+    return false;
 }
 
 void Table2::reduceDominatingColumns()
 {
-
+    
 }
 
 void Table2::findEssentialPrimeImplicants()

@@ -31,6 +31,8 @@ public:
     void reduceDominatingColumns();
     void findEssentialPrimeImplicants();
     void display ();
+    static bool vectorDominates(vector<short> &,vector<short> &);
+    static bool vectorFind(vector<short> &,short);
 };
 
 #endif /* defined(__DigitalProject_1__Table2__) */
