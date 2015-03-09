@@ -45,6 +45,7 @@ void display(vector<vector<Implicant>> & toDisplay)
     {
         for(int j=0; j< toDisplay[i].size(); j++)
         {
+            cout <<setw(shift);
             toDisplay[i][j].printImpl();
             cout << " ";
             toDisplay[i][j].printRepresentation();
@@ -163,7 +164,7 @@ bool Table1::combine(short index, bool initial)
     
 }
 
-bool Table1::implicantDoesNotExist(short index, Implicant & n, bool initial)
+bool Table1::implicantDoesNotExist(short index, const Implicant & n, bool initial)
 {
     if(initial)
     {

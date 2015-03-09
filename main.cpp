@@ -11,10 +11,10 @@
 #include <vector>
 using namespace std;
 #include "Implicant.h"
-#include "Table1.h"
+//#include "Table1.h"
 //bool isPowerof2(short);
 
-bool existsIn(short, vector<short> &) ;
+bool existsIn(short, set<short> &) ;
 void inputMinterms(set<short>&, short);
 void inputDontCares(set<short>&, set<short> &,short);
 
@@ -43,14 +43,14 @@ int main()
     }
     
     
-    Table1 tester;
-    for(short i: minterms)
-        tester.insert(i);
-    
-    tester.traverseAndCompare();
+//    Table1 tester;
+//    for(short i: minterms)
+//        tester.insert(i);
+//    
+//    tester.traverseAndCompare();
 }
 
-bool existsInMinterms(short k, set<short> & minterms)
+bool existsIn(short k, set<short> & minterms)
 {
     bool found =false;
     for(set <short> :: iterator i = minterms.begin(); i!=minterms.end()&& found ==false; i++)
@@ -82,7 +82,7 @@ void inputMinterms(set<short>& minterms, short variables)
     }while(temp!=-1 && counter<variables);
 }
 
-void inputDontCares(set<short>& dontcares, vector<short> & minterms,short variables)
+void inputDontCares(set<short>& dontcares, set<short> & minterms,short variables)
 {
     cout << "Please enter the dont cares of the function.\n";
     short temp,counter=0;

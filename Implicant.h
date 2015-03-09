@@ -32,9 +32,9 @@ public:
     void setCombinedToFalse();
     void setCombinedToTrue();
     bool canCombine (Implicant & other) const;
-    bool areEqual(Implicant &);
+    bool areEqual(const Implicant &) const;
     
-    short numberOfOnes();
+    short numberOfOnes() const;
     void printBinary(short);
     void printImpl();
     void printRepresentation();
@@ -48,7 +48,8 @@ public:
     
     bool contains(short);
     
-    bool operator == (Implicant &);
+    bool operator == (const Implicant &) const;
+    bool operator< (const Implicant &) const;
     
 };
 

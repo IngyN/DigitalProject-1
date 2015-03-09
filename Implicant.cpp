@@ -57,7 +57,7 @@ void Implicant:: setCombinedToTrue()
     combined = true;
 }
 
-short Implicant:: numberOfOnes()
+short Implicant:: numberOfOnes() const
 {
     unsigned short count =1; short result=0;
     
@@ -142,7 +142,7 @@ Implicant * Implicant:: combineWith(Implicant &other)
     return temp;
 }
 
-bool Implicant::areEqual(Implicant& other)
+bool Implicant::areEqual(const Implicant& other) const
 {
     
     if(other.minterms.size()!= this->minterms.size())
@@ -205,8 +205,12 @@ bool Implicant::contains(short k)
     return false;
 }
 
-bool Implicant:: operator==(Implicant & other)
+bool Implicant:: operator==(const Implicant & other) const
 {
     return this->areEqual(other);
 }
            
+bool Implicant:: operator<(const Implicant & other) const
+{
+    return this->numberOfOnes() < other.numberOfOnes();
+}

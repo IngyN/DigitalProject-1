@@ -34,7 +34,7 @@ public:
     void insert (short);
     void traverseAndCompare();
     bool combine(short index, bool initial);
-    bool implicantDoesNotExist(short index, Implicant &, bool initial);
+    bool implicantDoesNotExist(short index, const Implicant &, bool initial);
     void putInFinal (short, bool);
     
     void display();
