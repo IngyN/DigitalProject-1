@@ -29,7 +29,8 @@ public:
     
     void reduceDominatingRows();
     void reduceDominatingColumns();
-    void findEssentialPrimeImplicants();    
+    void findEssentialPrimeImplicants();
+    void display ();
 };
 
 #endif /* defined(__DigitalProject_1__Table2__) */
