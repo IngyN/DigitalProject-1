@@ -9,6 +9,7 @@
 #include "Implicant.h"
 #include <string>
 #include <bitset>
+#include <cmath>
 
 Implicant:: Implicant()
 {
@@ -29,7 +30,9 @@ Implicant:: Implicant(const Implicant & other)
 }
 
 Implicant:: ~Implicant()
-{}
+{
+
+}
 
 short Implicant:: returnFirstMinterm() const
 {
@@ -92,6 +95,23 @@ void Implicant:: printImpl()
         cout << "," << *i;
     }
     cout << ")";
+}
+
+void Implicant:: printRepresentation()
+{
+    short first = this->returnFirstMinterm();
+    bitset<16> bit(first);
+    string rep = bit.to_string();
+    for(short i: this->diff)
+    {
+        rep[(rep.size()-1)-log2(i)]='X';
+    }
+    cout<<rep;
+}
+
+short Implicant::numberOfMinterms()
+{
+    return minterms.size();
 }
 
 Implicant * Implicant:: combineWith(Implicant &other)

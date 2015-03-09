@@ -37,6 +37,8 @@ public:
     short numberOfOnes();
     void printBinary(short);
     void printImpl();
+    void printRepresentation();
+    short numberOfMinterms();
     
     Implicant * combineWith(Implicant &);
     

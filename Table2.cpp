@@ -45,7 +45,19 @@ void Table2::reduceDominatingRows()
 
 void Table2::reduceDominatingColumns()
 {
+<<<<<<< Updated upstream
     
+=======
+    for(int i=0; i<columns; i++)
+    {
+        
+        for(int j=0; j<rows; j++)
+        {
+        
+            
+        }
+    }
+>>>>>>> Stashed changes
 }
 
 void Table2::findEssentialPrimeImplicants()

@@ -7,6 +7,11 @@
 //
 
 #include "Table1.h"
+#include "iostream"
+#include "iomanip"
+#include <cmath>
+using namespace std;
+
 
 Table1::Table1()
 {
@@ -25,6 +30,33 @@ void Table1::insert(short a)
     initial [one.numberOfOnes()].push_back(one);
 }
 
+<<<<<<< Updated upstream
+=======
+// Compare and combine one category and the next
+// if two elements can be combined, they are combined
+// In the function combine with the booleans Combined of each of the three implicants is updated
+// i and j are set to combined
+// n the new implicant is set to not combined.
+// Does not insert duplicates.
+
+void display(vector<vector<Implicant>> & toDisplay)
+{
+    int shift = log2(toDisplay[0][0].numberOfMinterms());
+    for(int i=0; i< toDisplay.size(); i++)
+    {
+        for(int j=0; j< toDisplay[i].size(); j++)
+        {
+            toDisplay[i][j].printImpl();
+            cout << " ";
+            toDisplay[i][j].printRepresentation();
+            cout<<endl;
+        }
+        cout << "--------------";
+    }
+
+}
+
+>>>>>>> Stashed changes
 void Table1::traverseAndCompare()
 {
     bool initial= true;
