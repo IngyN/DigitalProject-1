@@ -30,8 +30,7 @@ void Table1::insert(short a)
     initial [one.numberOfOnes()].push_back(one);
 }
 
-<<<<<<< Updated upstream
-=======
+
 // Compare and combine one category and the next
 // if two elements can be combined, they are combined
 // In the function combine with the booleans Combined of each of the three implicants is updated
@@ -56,7 +55,7 @@ void display(vector<vector<Implicant>> & toDisplay)
 
 }
 
->>>>>>> Stashed changes
+
 void Table1::traverseAndCompare()
 {
     bool initial= true;
