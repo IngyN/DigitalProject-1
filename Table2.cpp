@@ -39,24 +39,28 @@ Table2::~Table2()
 {
 }
 
-void Table2::reduceDominatingRows()
+void Table2:: reduce()
 {
-    vector<short> covered, covered2;
+    
+    while ((findEssentialPrimeImplicants())&&(reduceDominatingColumns())&&(reduceDominatingRows()));
+
+}
+
+bool Table2::reduceDominatingRows()
+{
+    vector<short> * covered = new vector<short>, * covered2 = new vector <short>;
+    bool done=true;
     
     for(int i=0; i<primeImplicants.size();i++)
     {
-        covered.clear();
-        covered2.clear();
+        covered->clear();
+        covered2->clear();
         
-        for (int k=0; k<minterms.size();k++)
-            if(primeImplicants[i].contains(minterms[k]))
-                covered.push_back(minterms[k]);
+        covered= primeImplicants[i].returnMinterms();
         
         for(int j=i+1;j<primeImplicants.size(); j++)
         {
-            for (int k=0; k<minterms.size();k++)
-                if(primeImplicants[j].contains(minterms[k]))
-                    covered2.push_back(minterms[k]);
+            covered2= primeImplicants[j].returnMinterms();
             
             if(vectorDominates(covered, covered2))
                 // code comes here if covered2 dominates covered.
@@ -64,6 +68,7 @@ void Table2::reduceDominatingRows()
                 // Delete row i
                 for(int l=0; l<minterms.size(); l++)
                     table[l].reset(i);
+                done=false;
             }
             
             else if (vectorDominates(covered2, covered))
@@ -72,43 +77,80 @@ void Table2::reduceDominatingRows()
                 // Delete row j
                 for(int l=0; l<minterms.size(); l++)
                     table[l].reset(j);
+                done =false;
             }
         }
     }
+    return done;
     
 }
 
 // returns true if two dominates one
-bool Table2::vectorDominates(vector<short> & one, vector<short> & two)
+bool Table2::vectorDominates(vector<short> * one, vector<short> * two)
 {
-    for (short i: one)
+    for (short i: *one)
         if(!vectorFind(two, i))
             return false;
     
-    if (one.size()<two.size())
+    if (one->size()<two->size())
         return true;
     
     else return false;
     
 }
 
-bool Table2::vectorFind(vector<short> & v, short e)
+bool Table2::vectorFind(vector<short> * v, short e)
 {
-    for (short i: v)
+    for (short i: *v)
         if(e==i)
             return true;
     
     return false;
 }
 
-void Table2::reduceDominatingColumns()
+bool Table2::reduceDominatingColumns()
 {
+    vector<short> * covered = new vector<short>, * covered2 = new vector <short>;
+    bool done = true;
+    for(int i=0; i<minterms.size();i++)
+    {
+        covered->clear();
+        covered2->clear();
+        
+        for (int k=0; k<primeImplicants.size(); k++)
+            if(primeImplicants[k].contains(minterms[i]))
+                covered->push_back(k);// column of minterm [i]
+        
+        for(int j=i+1;j<minterms.size(); j++)
+        {
+            for (int k=0; k<primeImplicants.size(); k++)
+                if(primeImplicants[k].contains(minterms[j]))
+                    covered2->push_back(k); // column of minterm [j]
+            
+            if(vectorDominates(covered, covered2))
+                // code comes here if covered2 dominates covered.
+            {
+                // Delete column i
+                table[i].reset();
+                done = false;
+            }
+            
+            else if (vectorDominates(covered2, covered))
+            {
+                // code comes here if covered dominates covered2.
+                // Delete column j
+                table[j].reset();
+                done=false;
+            }
+        }
+    }
     
+    return done;
 }
 
-void Table2::findEssentialPrimeImplicants()
+bool Table2::findEssentialPrimeImplicants()
 {
-    bool onlyOne;
+    bool onlyOne, done=true;
     int essenRow=0;
     for(int i=0; i<minterms.size(); i++)// Columns
     {
@@ -134,10 +176,13 @@ void Table2::findEssentialPrimeImplicants()
                 table[i].reset();
                 for(int i=0; i<minterms.size(); i++)
                     table[i].reset(essenRow);
+                done=false;
             }
         }
         
     }
+    
+    return done;
 }
 
 void Table2::display()

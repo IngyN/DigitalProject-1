@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <set>
+#include <vector>
 using namespace std;
 
 class Implicant
@@ -43,13 +44,14 @@ public:
     Implicant * combineWith(Implicant &);
     
     short returnFirstMinterm() const;
+    vector<short> * returnMinterms();
     static bool isPowerof2(short a);
     static bool setsAreEqual (const set<short> &, const set <short>&);
     
     bool contains(short);
     
     bool operator == (const Implicant &) const;
-    bool operator< (const Implicant &) const;
+    bool operator < (const Implicant &) const;
     
 };
 

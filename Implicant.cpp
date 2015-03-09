@@ -41,6 +41,14 @@ short Implicant:: returnFirstMinterm() const
     return *i;
 }
 
+vector<short> * Implicant::returnMinterms()
+{
+    vector <short> * m = new vector<short>;
+    for ( short i: minterms)
+        m->push_back(i);
+    
+    return m;
+}
 
 bool Implicant:: isCombined()
 {

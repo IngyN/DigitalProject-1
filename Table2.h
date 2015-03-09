@@ -27,12 +27,13 @@ public:
     Table2(set<Implicant> & , set<short> &);
     ~Table2();
     
-    void reduceDominatingRows();
-    void reduceDominatingColumns();
-    void findEssentialPrimeImplicants();
+    bool reduceDominatingRows();
+    bool reduceDominatingColumns();
+    bool findEssentialPrimeImplicants();
+    void reduce();
     void display ();
-    static bool vectorDominates(vector<short> &,vector<short> &);
-    static bool vectorFind(vector<short> &,short);
+    static bool vectorDominates(vector<short> *,vector<short> *);
+    static bool vectorFind(vector<short> *,short);
 };
 
 #endif /* defined(__DigitalProject_1__Table2__) */
