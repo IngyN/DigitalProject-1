@@ -9,32 +9,33 @@
 #include "Table2.h"
 
 
-Table2::Table2(vector<Implicant> & primes, vector<short> & mintermsLocal)
+Table2::Table2(set<Implicant> & primes, set<short> & mintermsLocal)
 {
-    primeImplicants=primes;
-    minterms=mintermsLocal;
-    rows=primes.size();
-    columns = minterms.size();
-    table = new bool*[rows];
     
-    for(int i=0; i<rows; i++)
+    for (Implicant i: primes)
+        primeImplicants.push_back(i);
+    
+    for (short i: mintermsLocal)
+        minterms.push_back(i);
+    
+    //    rows=primes.size();
+    //    columns = minterms.size();
+    
+    table.resize(minterms.size());
+    
+    for(int i=0; i<primeImplicants.size(); i++)
     {
-        table[i]= new bool[columns];
-        for(int j=0; j<columns; j++)
-            if(primes[i].contains(minterms[j]))
+        for(int j=0; j<minterms.size(); j++)
+            if(primeImplicants[i].contains(minterms[j]))
                 table[i][j]=true;
+            else
+                table[i][j]=false;
     }
-        
     
 }
 
 Table2::~Table2()
 {
-    for(int i=0;i<rows;i++)
-    {
-        delete [] table[i];
-    }
-    delete [] table;
 }
 
 void Table2::reduceDominatingRows()
@@ -44,42 +45,42 @@ void Table2::reduceDominatingRows()
 
 void Table2::reduceDominatingColumns()
 {
-    for(int i=0; i<columns; i++)
-    {
-        
-        for(int j=0; j<rows; j++)
-        {
-        
-            
-        }
+    
 }
 
 void Table2::findEssentialPrimeImplicants()
 {
     bool onlyOne;
     int essenRow=0;
-    for(int i=0; i<columns; i++)
+    for(int i=0; i<minterms.size(); i++)// Columns
     {
         onlyOne =false;
-        for(int j=0; j<rows; j++)
+        if (table[i].any())
         {
-            if(table[i][j]==true && onlyOne==false)
+            for(int j=0; j<primeImplicants.size(); j++)//rows
             {
-                onlyOne =true;
-                essenRow= i;
+                if(table[j][i]==true && onlyOne==false)
+                {
+                    onlyOne =true;
+                    essenRow= j;
+                }
+                else if(table[j][i]==true && onlyOne==true)
+                {
+                    onlyOne=false;
+                    break;
+                }
             }
-            else if(table[i][j]==true && onlyOne==true)
+            if(onlyOne==true)
             {
-                onlyOne=false;
-                break;
+                Essentials.insert(primeImplicants[essenRow]);
+                table[i].reset();
+                for(int i=0; i<minterms.size(); i++)
+                    table[i].reset(essenRow);
             }
         }
-        if(onlyOne==true)
-            Essentials.push_back(primeImplicants[essenRow]);
+        
     }
 }
-
-
 
 
 

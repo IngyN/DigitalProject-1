@@ -19,21 +19,17 @@ private:
     
     vector <short> minterms;
     vector <Implicant> primeImplicants;
-    vector<Implicant> Essentials;
-    bool ** table;
-    int rows;
-    int columns;
+    set <Implicant> Essentials;
+    vector<bitset<16384>> table;
     
 public:
     
-    Table2(vector<Implicant> & , vector<short> &);
+    Table2(set<Implicant> & , set<short> &);
     ~Table2();
     
     void reduceDominatingRows();
     void reduceDominatingColumns();
-    void findEssentialPrimeImplicants();
-    
-    
+    void findEssentialPrimeImplicants();    
 };
 
 #endif /* defined(__DigitalProject_1__Table2__) */

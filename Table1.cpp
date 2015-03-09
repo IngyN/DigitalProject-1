@@ -25,13 +25,6 @@ void Table1::insert(short a)
     initial [one.numberOfOnes()].push_back(one);
 }
 
-// Compare and combine one category and the next
-// if two elements can be combined, they are combined
-// In the function combine with the booleans Combined of each of the three implicants is updated
-// i and j are set to combined
-// n the new implicant is set to not combined.
-// Does not insert duplicates.
-
 void Table1::traverseAndCompare()
 {
     bool initial= true;
@@ -87,6 +80,13 @@ void Table1::putInFinal (short index, bool init)
     
 }
 
+
+// Compare and combine one category and the next
+// if two elements can be combined, they are combined
+// In the function combine with the booleans Combined of each of the three implicants is updated
+// i and j are set to combined
+// n the new implicant is set to not combined.
+// Does not insert duplicates.
 bool Table1::combine(short index, bool initial)
 {
     bool flag= false;
