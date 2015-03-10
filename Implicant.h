@@ -22,7 +22,6 @@ private:
     set <short> minterms;
     set <short> diff;
     bool combined;
-    
 public:
     Implicant();
     Implicant(short);
@@ -39,7 +38,7 @@ public:
     void printBinary(short);
     void printImpl();
     void printRepresentation();
-    short numberOfMinterms();
+    short numberOfMinterms() const;
     
     Implicant * combineWith(Implicant &);
     

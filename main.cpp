@@ -11,6 +11,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <cmath>
 
 using namespace std;
 #include "Implicant.h"
@@ -52,7 +53,8 @@ int main()
         }
     }
     
-    Table1 tester;
+    Table1 tester(variables);
+    
     for(short i: minterms)
         tester.insert(i);
     
@@ -96,7 +98,7 @@ void inputMinterms(set<short>& minterms, short variables)
         {  i=stoi(buff);
             minterms.insert(short(i));
         }
-        if (i<0||i>=variables)
+        if (i<0||i>=pow(2,variables))
             repeat=true;
     }while(minterms.size()>variables||repeat);
     
@@ -127,7 +129,7 @@ void inputDontCares(set<short>& dontcares, set<short> & minterms,short variables
         repeat=false;
         string temp;
         cout << "Please enter the dontcares of the function.\n";
-        //cin.ignore();
+        cin.ignore();
         getline(cin, temp);
         
         stringstream ss(temp);
@@ -138,6 +140,7 @@ void inputDontCares(set<short>& dontcares, set<short> & minterms,short variables
         }
         if (i<0||i>=variables)
             repeat=true;
+        
     }while(dontcares.size()>(variables-minterms.size())||existsIn(short(i), minterms)||repeat);
     
     //    short temp,counter=0;

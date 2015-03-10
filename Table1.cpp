@@ -18,6 +18,15 @@ Table1::Table1()
     done =false;
 }
 
+Table1::Table1(short num)
+{
+    initial.resize(num);
+    intermediate.resize(num);
+    final.resize(num);
+    done=false;
+
+}
+
 Table1::~Table1()
 {
     
@@ -27,7 +36,9 @@ Table1::~Table1()
 void Table1::insert(short a)
 {
     Implicant one (a);
+
     initial [one.numberOfOnes()].push_back(one);
+    
 }
 
 
@@ -40,19 +51,20 @@ void Table1::insert(short a)
 
 void Table1:: display( vector<vector<Implicant>> & toDisplay)
 {
-    int shift = log2(toDisplay[0][0].numberOfMinterms());
+
     for(int i=0; i< toDisplay.size(); i++)
     {
         for(int j=0; j< toDisplay[i].size(); j++)
         {
-            cout <<setw(shift);
             toDisplay[i][j].printImpl();
             cout << " ";
             toDisplay[i][j].printRepresentation();
             cout<<endl;
         }
-        cout << "--------------";
+        if(toDisplay[i].size()>0)
+        cout << " ------------------"<<endl;
     }
+    cout << endl;
 
 }
 
@@ -69,13 +81,15 @@ void Table1::traverseAndCompare()
         
         if (initial)
         {
+            intermediate.clear();
+            intermediate.resize(this->initial.size());
             if(this->initial.size()>0)
             {
                 for(int i=0; i< this->initial.size()-1; i++)
                 {
-                    done = !(combine(i, initial));
+                    done &= !(combine(i, initial));
                     this->putInFinal(i, initial);
-                    display(intermediate);
+                    
                 }
             }
             
@@ -84,31 +98,34 @@ void Table1::traverseAndCompare()
         }
         else
         {
+            this->initial.clear();
+            this->initial.resize(this->initial.size());
             if(this->intermediate.size()>0)
             {
                 for(int i=0; i< this->intermediate.size()-1; i++)
                 {
-                    done=!(combine(i, initial));
+                    done &=!(combine(i, initial));
                     this->putInFinal(i, initial);
-                    display(this->initial);
+                    
                 }
             }
-            
             initial =true;
 
         }
     }
+    
     this->display(final);
 }
 
-// loops over one vector if one of the elements were combined put in final
+// loops over one vector if one of the elements were not combined put in final
 void Table1::putInFinal (short index, bool init)
 {
     if(init)
     {
         for( Implicant i: initial[index])
-            if (!i.isCombined() )//&& this->implicantDoesNotExist(i.numberOfOnes(), i, init))
+            if (!i.isCombined())//&& this->implicantDoesNotExist(i.numberOfOnes(), i, init))
                 final[i.numberOfOnes()].push_back(i);
+        
     }
     else
         for( Implicant i: intermediate[index])
@@ -130,12 +147,12 @@ bool Table1::combine(short index, bool initial)
     
     if(initial)
     {
-        intermediate.clear();
+
         
         if(this->initial[index].size()>0 && this->initial[index+1].size()>0)
         {
-            for (Implicant j:this->initial[index])
-                for (Implicant i: this->initial[index+1])
+            for (Implicant& j:this->initial[index])
+                for (Implicant& i: this->initial[index+1])
                     if (i.canCombine(j))
                     {
                         flag =true;
@@ -147,8 +164,6 @@ bool Table1::combine(short index, bool initial)
     }
     else
     {
-        this->initial.clear();
-        
         if(this->intermediate[index].size()>0 && this->intermediate[index+1].size()>0)
         {
             for (Implicant j:this->intermediate[index])

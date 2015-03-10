@@ -67,17 +67,19 @@ void Implicant:: setCombinedToTrue()
 
 short Implicant:: numberOfOnes() const
 {
-    unsigned short count =1; short result=0;
+    unsigned short count = ~0; short result=0;
     
-    if (minterms.size()>1)
+    if (minterms.size()>=1)
     {
         for( set <short> ::iterator i = minterms.begin(); i!=minterms.end(); i++)
+        {
             count= count & (*i);
+        }
     }
     
     while (count !=0)
     {
-        result = count%2;
+        result += count%2;
         count =count >>1;
     }
     
@@ -117,9 +119,15 @@ void Implicant:: printRepresentation()
     cout<<rep;
 }
 
-short Implicant::numberOfMinterms()
+short Implicant::numberOfMinterms() const
 {
-    return minterms.size();
+    
+    int s =0;
+    
+    for(short i:minterms)
+        s++;
+    
+    return s;
 }
 
 Implicant * Implicant:: combineWith(Implicant &other)
@@ -195,7 +203,8 @@ bool Implicant:: canCombine(Implicant& other) const
     if (!setsAreEqual(diff, other.diff))
         return false;
     
-    if(isPowerof2(abs(this->returnFirstMinterm()-other.returnFirstMinterm())))
+    //if(isPowerof2(abs(this->returnFirstMinterm()-other.returnFirstMinterm())))
+    if(isPowerof2(abs(this->returnFirstMinterm() ^ other.returnFirstMinterm())))
         return true;
     else
         return false;

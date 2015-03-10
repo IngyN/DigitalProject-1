@@ -22,6 +22,7 @@ private:
     vector <vector<Implicant>> intermediate;
     vector <vector<Implicant>> final;
     bool done;
+
     
     //which data structure? another set >> a set of implicants?
     // I don't think we should use a set for the sake of being able to retrieve and  access elements freely
@@ -30,6 +31,7 @@ private:
     
 public:
     Table1();
+    Table1(short num);
     ~Table1();
     void insert (short);
     void traverseAndCompare();
