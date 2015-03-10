@@ -208,8 +208,8 @@ void Table2::display()
     for (vector <short> ::iterator i= minterms.begin(); i!=minterms.end(); i++)
     {
         if((i==minterms.begin()))
-            cout<< setw(10)<<*i;
-        else cout << setw(4) <<*i;
+            cout<< setw(13)<<*i;
+        else cout << setw(6) <<*i;
     }
     
     cout <<endl;
@@ -221,9 +221,9 @@ void Table2::display()
         for (int j=0; j <minterms.size(); j++ )
         {
             if(table [j][i]==0)
-                cout <<setw(4)<< " ";
+                cout <<setw(6)<< " ";
             else
-                cout << setw(4)<<"@";
+                cout << setw(6)<<"@";
         }
         cout <<endl;
     }
