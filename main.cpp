@@ -65,7 +65,7 @@ int main()
     
     else
     {
-        cout << "The corresponding Boolean expression is: " <<1<<endl;
+        cout <<endl<< "The corresponding minimized Boolean expression is: " <<1<<endl<<endl;
     }
     
     
