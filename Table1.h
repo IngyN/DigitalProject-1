@@ -37,7 +37,7 @@ public:
     bool implicantDoesNotExist(short index, const Implicant &, bool initial);
     void putInFinal (short, bool);
     
-    void display();
+    void display(vector<vector<Implicant>> & toDisplay);
     //function to traverse column and compare in the 'initial'
     //function to call the implicant combine function and shift implicant to 'intermediate'?
     //function to reset all combined implicants in 'intermediate' column to uncombined ie return to initial stage

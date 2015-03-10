@@ -38,7 +38,7 @@ void Table1::insert(short a)
 // n the new implicant is set to not combined.
 // Does not insert duplicates.
 
-void display(vector<vector<Implicant>> & toDisplay)
+void Table1:: display( vector<vector<Implicant>> & toDisplay)
 {
     int shift = log2(toDisplay[0][0].numberOfMinterms());
     for(int i=0; i< toDisplay.size(); i++)
@@ -61,6 +61,8 @@ void Table1::traverseAndCompare()
 {
     bool initial= true;
     
+    display(this->initial);
+    
     while (!done)
     {
         done =true;
@@ -73,6 +75,7 @@ void Table1::traverseAndCompare()
                 {
                     done = !(combine(i, initial));
                     this->putInFinal(i, initial);
+                    display(intermediate);
                 }
             }
             
@@ -87,6 +90,7 @@ void Table1::traverseAndCompare()
                 {
                     done=!(combine(i, initial));
                     this->putInFinal(i, initial);
+                    display(this->initial);
                 }
             }
             
@@ -94,6 +98,7 @@ void Table1::traverseAndCompare()
 
         }
     }
+    this->display(final);
 }
 
 // loops over one vector if one of the elements were combined put in final

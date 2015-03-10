@@ -37,21 +37,30 @@ int main()
     inputMinterms(minterms, variables);
     
     set<short> dontcares;
-    inputDontCares(dontcares, minterms,variables);
-
     
+    char c;
+    cout << "If you would like to input don't cares enter Y\n";
+    cin>>c;
     
-    for(short i: dontcares)
+    if(c=='Y')
     {
-        minterms.insert(i);
+        inputDontCares(dontcares, minterms,variables);
+        
+        for(short i: dontcares)
+        {
+            minterms.insert(i);
+        }
     }
-
     
     Table1 tester;
     for(short i: minterms)
         tester.insert(i);
     
     tester.traverseAndCompare();
+    
+    
+    system("pause");
+    return 0;
 }
 
 bool existsIn(short k, set<short> & minterms)
@@ -91,20 +100,20 @@ void inputMinterms(set<short>& minterms, short variables)
             repeat=true;
     }while(minterms.size()>variables||repeat);
     
-//    short temp,counter=0;
-//    cout << "Please enter the minterms of the function.\n";
-//    do
-//    {
-//        cin >>temp;
-//        while(temp<0 ||temp>variables)
-//        {
-//            cout << "The number you entered was inappropriate please enter an integer from 0 to " << variables-1 <<".\n";
-//            cin >> temp;
-//        }
-//        if(temp!=-1)
-//            minterms.insert(temp);
-//        counter++;
-//    }while(temp!=-1 && counter<variables);
+    //    short temp,counter=0;
+    //    cout << "Please enter the minterms of the function.\n";
+    //    do
+    //    {
+    //        cin >>temp;
+    //        while(temp<0 ||temp>variables)
+    //        {
+    //            cout << "The number you entered was inappropriate please enter an integer from 0 to " << variables-1 <<".\n";
+    //            cin >> temp;
+    //        }
+    //        if(temp!=-1)
+    //            minterms.insert(temp);
+    //        counter++;
+    //    }while(temp!=-1 && counter<variables);
 }
 
 void inputDontCares(set<short>& dontcares, set<short> & minterms,short variables)
@@ -131,41 +140,41 @@ void inputDontCares(set<short>& dontcares, set<short> & minterms,short variables
             repeat=true;
     }while(dontcares.size()>(variables-minterms.size())||existsIn(short(i), minterms)||repeat);
     
-//    short temp,counter=0;
-//    do
-//    {
-//        cin >>temp;
-//        while(temp<0 ||temp>variables||existsIn(temp,minterms))
-//        {
-//            if(existsIn(temp,minterms))
-//                cout << "This number has already been specified as a minterm";
-//            else
-//                cout << "The number you entered was inappropriate please enter an integer from 0 to " << variables-1<<".\n";
-//            cin >> temp;
-//        }
-//        if(temp!=-1)
-//            dontcares.insert(temp);
-//        counter++;
-//    }while(temp!=-1 && counter<variables-minterms.size());
+    //    short temp,counter=0;
+    //    do
+    //    {
+    //        cin >>temp;
+    //        while(temp<0 ||temp>variables||existsIn(temp,minterms))
+    //        {
+    //            if(existsIn(temp,minterms))
+    //                cout << "This number has already been specified as a minterm";
+    //            else
+    //                cout << "The number you entered was inappropriate please enter an integer from 0 to " << variables-1<<".\n";
+    //            cin >> temp;
+    //        }
+    //        if(temp!=-1)
+    //            dontcares.insert(temp);
+    //        counter++;
+    //    }while(temp!=-1 && counter<variables-minterms.size());
     
-
+    
 }
 
 //    set<short> A;
 //    A.insert(5);
 //    A.insert(3);
 //    A.insert(8);
-//    
-//    
+//
+//
 //    cout << "(";
 //    set <short> :: iterator i= A.begin();
 //    cout << *i;
 //    i++;
-//    
+//
 //    for( ;i!=A.end(); i++)
 //    {
 //            cout << "," << *i;
-//        
+//
 //    }
 //    cout << ")";
 //    for(short i : A)
