@@ -47,10 +47,11 @@ int main()
     {
         inputDontCares(dontcares, minterms,variables);
         
-        for(short i: minterms)
-        {
-            dontcares.insert(i);
-        }
+    }
+    
+    for(short i: minterms)
+    {
+        dontcares.insert(i);
     }
     
     Table1 tester(variables);
@@ -163,30 +164,3 @@ void inputDontCares(set<short>& dontcares, set<short> & minterms,short variables
     
 }
 
-//    set<short> A;
-//    A.insert(5);
-//    A.insert(3);
-//    A.insert(8);
-//
-//
-//    cout << "(";
-//    set <short> :: iterator i= A.begin();
-//    cout << *i;
-//    i++;
-//
-//    for( ;i!=A.end(); i++)
-//    {
-//            cout << "," << *i;
-//
-//    }
-//    cout << ")";
-//    for(short i : A)
-//    {
-//        cout << i;
-//    }
-
-
-//bool isPowerof2(short a)
-//{
-//    return ((a &(a-1)) ==0);
-//}

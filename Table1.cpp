@@ -121,10 +121,10 @@ void Table1::traverseAndCompare(set<short> & m)
     cout <<"\n Final Table\n";
     this->display(final);
     
-    set <Implicant> temp;
+    vector <Implicant> temp;
     for(int i=0; i<final.size(); i++)
-        for(Implicant &i : final[i])
-            temp.insert(i);
+        for(Implicant &j : final[i])
+            temp.push_back(j);
             
     Table2 t (temp, m);
     t.reduce();
@@ -136,13 +136,13 @@ void Table1::putInFinal (short index, bool init)
     
     if(init)
     {
-        for( Implicant i: initial[index])
+        for( Implicant& i: initial[index])
             if (!i.isCombined() && !implicantExists(final, i, index))
                 final[i.numberOfOnes()].push_back(i);
         
     }
     else
-        for( Implicant i: intermediate[index])
+        for( Implicant& i: intermediate[index])
             if (!i.isCombined()  && !implicantExists(final, i, index))
                 final[i.numberOfOnes()].push_back(i);
     
@@ -200,13 +200,13 @@ bool Table1::implicantDoesNotExist(short index, const Implicant & n, bool initia
 {
     if(initial)
     {
-        for(Implicant i: this->intermediate[index])
+        for(Implicant& i: this->intermediate[index])
             if(n == i)
                 return false;
     }
     else
     {
-        for(Implicant i: this->initial[index])
+        for(Implicant& i: this->initial[index])
             if(n == i)
                 return false;
     }
@@ -216,7 +216,7 @@ bool Table1::implicantDoesNotExist(short index, const Implicant & n, bool initia
 
 bool Table1::implicantExists(vector<vector<Implicant>> & v, Implicant & i, short index)
 {
-    for (Implicant n: v[index])
+    for (Implicant& n: v[index])
         if(n==i)
             return true;
     

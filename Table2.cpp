@@ -10,11 +10,10 @@
 #include <iomanip>
 
 
-Table2::Table2(set<Implicant> & primes, set<short> & mintermsLocal)
+Table2::Table2(vector<Implicant> & primes, set<short> & mintermsLocal)
 {
     
-    for (Implicant i: primes)
-        primeImplicants.push_back(i);
+    primeImplicants = primes;
     
     for (short i: mintermsLocal)
         minterms.push_back(i);
@@ -28,9 +27,9 @@ Table2::Table2(set<Implicant> & primes, set<short> & mintermsLocal)
     {
         for(int j=0; j<minterms.size(); j++)
             if(primeImplicants[i].contains(minterms[j]))
-                table[i][j]=true;
+                table[j][i]=true;
             else
-                table[i][j]=false;
+                table[j][i]=false;
     }
     
 }
@@ -171,12 +170,12 @@ bool Table2::findEssentialPrimeImplicants()
         {
             for(int j=0; j<primeImplicants.size(); j++)//rows
             {
-                if(table[j][i]==true && onlyOne==false)
+                if(table[i][j]==true && onlyOne==false)
                 {
                     onlyOne =true;
                     essenRow= j;
                 }
-                else if(table[j][i]==true && onlyOne==true)
+                else if(table[i][j]==true && onlyOne==true)
                 {
                     onlyOne=false;
                     break;
@@ -184,10 +183,16 @@ bool Table2::findEssentialPrimeImplicants()
             }
             if(onlyOne==true)
             {
-                Essentials.insert(primeImplicants[essenRow]);
+                Essentials.push_back(primeImplicants[essenRow]);
                 table[i].reset();
-                for(int i=0; i<minterms.size(); i++)
-                    table[i].reset(essenRow);
+                for(int k=0; k<minterms.size(); k++)
+                {
+                    if(table[k][essenRow] == true){
+                        table[k].reset();
+                    }
+                    table[k].reset(essenRow);
+                    
+                }
                 done=false;
             }
         }
@@ -203,7 +208,7 @@ void Table2::display()
     for (vector <short> ::iterator i= minterms.begin(); i!=minterms.end(); i++)
     {
         if((i==minterms.begin()))
-            cout<< setw(minterms.size()/2)<<*i;
+            cout<< setw(10)<<*i;
         else cout << setw(4) <<*i;
     }
     

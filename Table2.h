@@ -19,12 +19,12 @@ private:
     
     vector <short> minterms;
     vector <Implicant> primeImplicants;
-    set <Implicant> Essentials;
+    vector <Implicant> Essentials;
     vector<bitset<16384>> table;
     
 public:
     
-    Table2(set<Implicant> & , set<short> &);
+    Table2(vector<Implicant> & , set<short> &);
     ~Table2();
     
     bool reduceDominatingRows();
