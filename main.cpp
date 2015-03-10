@@ -56,10 +56,17 @@ int main()
     
     Table1 tester(variables);
     
+    if (dontcares.size()!= pow(2,variables))
+    {
     for(short i: dontcares)
         tester.insert(i);
+        tester.traverseAndCompare(minterms);
+    }
     
-    tester.traverseAndCompare(minterms);
+    else
+    {
+        cout << "The corresponding Boolean expression is: " <<1<<endl;
+    }
     
     
     system("pause");
@@ -103,20 +110,7 @@ void inputMinterms(set<short>& minterms, short variables)
             repeat=true;
     }while(minterms.size()>pow(2,variables)||repeat);
     
-    //    short temp,counter=0;
-    //    cout << "Please enter the minterms of the function.\n";
-    //    do
-    //    {
-    //        cin >>temp;
-    //        while(temp<0 ||temp>variables)
-    //        {
-    //            cout << "The number you entered was inappropriate please enter an integer from 0 to " << variables-1 <<".\n";
-    //            cin >> temp;
-    //        }
-    //        if(temp!=-1)
-    //            minterms.insert(temp);
-    //        counter++;
-    //    }while(temp!=-1 && counter<variables);
+
 }
 
 void inputDontCares(set<short>& dontcares, set<short> & minterms,short variables)
@@ -144,22 +138,6 @@ void inputDontCares(set<short>& dontcares, set<short> & minterms,short variables
         
     }while(dontcares.size()>(pow(2,variables)-minterms.size())||existsIn(short(i), minterms)||repeat);
     
-    //    short temp,counter=0;
-    //    do
-    //    {
-    //        cin >>temp;
-    //        while(temp<0 ||temp>variables||existsIn(temp,minterms))
-    //        {
-    //            if(existsIn(temp,minterms))
-    //                cout << "This number has already been specified as a minterm";
-    //            else
-    //                cout << "The number you entered was inappropriate please enter an integer from 0 to " << variables-1<<".\n";
-    //            cin >> temp;
-    //        }
-    //        if(temp!=-1)
-    //            dontcares.insert(temp);
-    //        counter++;
-    //    }while(temp!=-1 && counter<variables-minterms.size());
     
     
 }

@@ -205,6 +205,8 @@ bool Table2::findEssentialPrimeImplicants()
 
 void Table2::display()
 {
+    cout <<endl;
+    
     for (vector <short> ::iterator i= minterms.begin(); i!=minterms.end(); i++)
     {
         if((i==minterms.begin()))
@@ -232,7 +234,7 @@ void Table2::display()
 
 void Table2::displayEssentials() const
 {
-    cout << "Essential prime implicants"<<endl;
+    cout << "\nEssential prime implicants"<<endl;
     for (Implicant i: Essentials)
     {
         (i).printImpl();
