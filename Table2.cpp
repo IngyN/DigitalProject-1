@@ -208,22 +208,23 @@ void Table2::display()
     for (vector <short> ::iterator i= minterms.begin(); i!=minterms.end(); i++)
     {
         if((i==minterms.begin()))
-            cout<< setw(13)<<*i;
-        else cout << setw(6) <<*i;
+            cout<< setw('\t')<<*i;
+        else cout << setw('\t') <<*i;
     }
     
     cout <<endl;
     
     for ( int i=0; i<primeImplicants.size(); i++)
     {
+        
         primeImplicants[i].printImpl();
         
         for (int j=0; j <minterms.size(); j++ )
         {
             if(table [j][i]==0)
-                cout <<setw(6)<< " ";
+                cout << "\t  ";
             else
-                cout << setw(6)<<"@";
+                cout <<"\t @";
         }
         cout <<endl;
     }
