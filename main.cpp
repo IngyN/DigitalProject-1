@@ -9,9 +9,12 @@
 #include <iostream>
 #include <set>
 #include <vector>
+#include <string>
+#include <sstream>
+
 using namespace std;
 #include "Implicant.h"
-//#include "Table1.h"
+#include "Table1.h"
 //bool isPowerof2(short);
 
 bool existsIn(short, set<short> &) ;
@@ -37,17 +40,18 @@ int main()
     inputDontCares(dontcares, minterms,variables);
 
     
+    
     for(short i: dontcares)
     {
         minterms.insert(i);
     }
+
     
+    Table1 tester;
+    for(short i: minterms)
+        tester.insert(i);
     
-//    Table1 tester;
-//    for(short i: minterms)
-//        tester.insert(i);
-//    
-//    tester.traverseAndCompare();
+    tester.traverseAndCompare();
 }
 
 bool existsIn(short k, set<short> & minterms)
@@ -66,41 +70,83 @@ bool existsIn(short k, set<short> & minterms)
 
 void inputMinterms(set<short>& minterms, short variables)
 {
-    short temp,counter=0;
-    cout << "Please enter the minterms of the function.\n";
+    bool repeat;
     do
     {
-        cin >>temp;
-        while(temp<0 ||temp>variables)
-        {
-            cout << "The number you entered was inappropriate please enter an integer from 0 to " << variables-1<<".\n";
-            cin >> temp;
+        minterms.erase(minterms.begin(), minterms.end());
+        int i;
+        repeat=false;
+        string temp;
+        cout << "Please enter the minterms of the function.\n";
+        cin.ignore();
+        getline(cin, temp);
+        
+        stringstream ss(temp);
+        string buff;
+        while (ss >> buff)
+        {  i=stoi(buff);
+            minterms.insert(short(i));
         }
-        if(temp!=-1)
-            minterms.insert(temp);
-        counter++;
-    }while(temp!=-1 && counter<variables);
+        if (i<0||i>=variables)
+            repeat=true;
+    }while(minterms.size()>variables||repeat);
+    
+//    short temp,counter=0;
+//    cout << "Please enter the minterms of the function.\n";
+//    do
+//    {
+//        cin >>temp;
+//        while(temp<0 ||temp>variables)
+//        {
+//            cout << "The number you entered was inappropriate please enter an integer from 0 to " << variables-1 <<".\n";
+//            cin >> temp;
+//        }
+//        if(temp!=-1)
+//            minterms.insert(temp);
+//        counter++;
+//    }while(temp!=-1 && counter<variables);
 }
 
 void inputDontCares(set<short>& dontcares, set<short> & minterms,short variables)
 {
-    cout << "Please enter the dont cares of the function.\n";
-    short temp,counter=0;
+    //cout << "Please enter the dont cares of the function.\n";
+    int i;
+    bool repeat;
     do
     {
-        cin >>temp;
-        while(temp<0 ||temp>variables||existsIn(temp,minterms))
-        {
-            if(existsIn(temp,minterms))
-                cout << "This number has already been specified as a minterm";
-            else
-                cout << "The number you entered was inappropriate please enter an integer from 0 to " << variables-1<<".\n";
-            cin >> temp;
+        dontcares.erase(dontcares.begin(), dontcares.end());
+        repeat=false;
+        string temp;
+        cout << "Please enter the dontcares of the function.\n";
+        //cin.ignore();
+        getline(cin, temp);
+        
+        stringstream ss(temp);
+        string buff;
+        while (ss >> buff)
+        {  i=stoi(buff);
+            dontcares.insert(short(i));
         }
-        if(temp!=-1)
-            dontcares.insert(temp);
-        counter++;
-    }while(temp!=-1 && counter<variables-minterms.size());
+        if (i<0||i>=variables)
+            repeat=true;
+    }while(dontcares.size()>(variables-minterms.size())||existsIn(short(i), minterms)||repeat);
+    
+//    short temp,counter=0;
+//    do
+//    {
+//        cin >>temp;
+//        while(temp<0 ||temp>variables||existsIn(temp,minterms))
+//        {
+//            if(existsIn(temp,minterms))
+//                cout << "This number has already been specified as a minterm";
+//            else
+//                cout << "The number you entered was inappropriate please enter an integer from 0 to " << variables-1<<".\n";
+//            cin >> temp;
+//        }
+//        if(temp!=-1)
+//            dontcares.insert(temp);
+//        counter++;
+//    }while(temp!=-1 && counter<variables-minterms.size());
     
 
 }
