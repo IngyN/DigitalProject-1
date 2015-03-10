@@ -41,8 +41,11 @@ Table2::~Table2()
 
 void Table2:: reduce()
 {
+    this->display();
     
     while ((findEssentialPrimeImplicants())&&(reduceDominatingColumns())&&(reduceDominatingRows()));
+    
+    this->displayEssentials();
 
 }
 
@@ -85,6 +88,9 @@ bool Table2::reduceDominatingRows()
     }
     
     delete covered; delete covered2;
+    if(!done)
+        this->display();
+    
     return done;
     
 }
@@ -149,6 +155,8 @@ bool Table2::reduceDominatingColumns()
         }
     }
     delete covered; delete covered2;
+    if(!done)
+        this->display();
     return done;
 }
 
@@ -185,21 +193,28 @@ bool Table2::findEssentialPrimeImplicants()
         }
         
     }
-    
+    if(!done)
+        this->display();
     return done;
 }
 
 void Table2::display()
 {
-    for (short i:minterms)
-        cout << setw(4) <<i;
+    for (vector <short> ::iterator i= minterms.begin(); i!=minterms.end(); i++)
+    {
+        if((i==minterms.begin()))
+            cout<< setw(minterms.size()/2)<<*i;
+        else cout << setw(4) <<*i;
+    }
+    
+    cout <<endl;
     
     for ( int i=0; i<primeImplicants.size(); i++)
     {
+        primeImplicants[i].printImpl();
+        
         for (int j=0; j <minterms.size(); j++ )
         {
-            primeImplicants[i].printImpl();
-            
             if(table [j][i]==0)
                 cout <<setw(4)<< " ";
             else
@@ -209,6 +224,18 @@ void Table2::display()
     }
 }
 
+void Table2::displayEssentials() const
+{
+    cout << "Essential prime implicants"<<endl;
+    for (Implicant i: Essentials)
+    {
+        (i).printImpl();
+        cout <<setw(5);
+        i.printRepresentation();
+        cout<<endl;
+    }
+    cout <<endl;
+}
 
 
 

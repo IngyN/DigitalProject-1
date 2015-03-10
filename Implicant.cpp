@@ -10,6 +10,7 @@
 #include <string>
 #include <bitset>
 #include <cmath>
+#include <iomanip>
 
 Implicant:: Implicant()
 {
@@ -31,7 +32,7 @@ Implicant:: Implicant(const Implicant & other)
 
 Implicant:: ~Implicant()
 {
-
+    
 }
 
 short Implicant:: returnFirstMinterm() const
@@ -116,6 +117,7 @@ void Implicant:: printRepresentation()
     {
         rep[(rep.size()-1)-log2(i)]='X';
     }
+    cout << setw(20);
     cout<<rep;
 }
 
@@ -161,7 +163,7 @@ Implicant * Implicant:: combineWith(Implicant &other)
 bool Implicant::areEqual(const Implicant& other) const
 {
     
-    if(other.minterms.size()!= this->minterms.size())
+    if(other.minterms.size()== this->minterms.size())
     {
         for (set <short> :: iterator i= minterms.begin(), j=other.minterms.begin(); i!=minterms.end(); i++, j++)
         {
@@ -200,14 +202,17 @@ bool Implicant:: isPowerof2(short a)
 
 bool Implicant:: canCombine(Implicant& other) const
 {
-    if (!setsAreEqual(diff, other.diff))
-        return false;
+//    if(!combined)
+//    {
     
-    //if(isPowerof2(abs(this->returnFirstMinterm()-other.returnFirstMinterm())))
-    if(isPowerof2(abs(this->returnFirstMinterm() ^ other.returnFirstMinterm())))
-        return true;
-    else
-        return false;
+        if (!setsAreEqual(diff, other.diff))
+            return false;
+        
+        //if(isPowerof2(abs(this->returnFirstMinterm()-other.returnFirstMinterm())))
+        if(isPowerof2(abs(this->returnFirstMinterm() ^ other.returnFirstMinterm())))
+            return true;
+    //}
+    return false;
 }
 
 bool Implicant::contains(short k)
@@ -226,7 +231,7 @@ bool Implicant:: operator==(const Implicant & other) const
 {
     return this->areEqual(other);
 }
-           
+
 bool Implicant:: operator<(const Implicant & other) const
 {
     return this->numberOfOnes() < other.numberOfOnes();

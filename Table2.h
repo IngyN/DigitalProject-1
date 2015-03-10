@@ -32,6 +32,7 @@ public:
     bool findEssentialPrimeImplicants();
     void reduce();
     void display ();
+    void displayEssentials()const;
     static bool vectorDominates(vector<short> *,vector<short> *);
     static bool vectorFind(vector<short> *,short);
 };

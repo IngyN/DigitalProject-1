@@ -47,18 +47,18 @@ int main()
     {
         inputDontCares(dontcares, minterms,variables);
         
-        for(short i: dontcares)
+        for(short i: minterms)
         {
-            minterms.insert(i);
+            dontcares.insert(i);
         }
     }
     
     Table1 tester(variables);
     
-    for(short i: minterms)
+    for(short i: dontcares)
         tester.insert(i);
     
-    tester.traverseAndCompare();
+    tester.traverseAndCompare(minterms);
     
     
     system("pause");
@@ -85,7 +85,7 @@ void inputMinterms(set<short>& minterms, short variables)
     do
     {
         minterms.erase(minterms.begin(), minterms.end());
-        int i;
+        int i=0;
         repeat=false;
         string temp;
         cout << "Please enter the minterms of the function.\n";
@@ -100,7 +100,7 @@ void inputMinterms(set<short>& minterms, short variables)
         }
         if (i<0||i>=pow(2,variables))
             repeat=true;
-    }while(minterms.size()>variables||repeat);
+    }while(minterms.size()>pow(2,variables)||repeat);
     
     //    short temp,counter=0;
     //    cout << "Please enter the minterms of the function.\n";
@@ -138,10 +138,10 @@ void inputDontCares(set<short>& dontcares, set<short> & minterms,short variables
         {  i=stoi(buff);
             dontcares.insert(short(i));
         }
-        if (i<0||i>=variables)
+        if (i<0||i>=pow(2,variables))
             repeat=true;
         
-    }while(dontcares.size()>(variables-minterms.size())||existsIn(short(i), minterms)||repeat);
+    }while(dontcares.size()>(pow(2,variables)-minterms.size())||existsIn(short(i), minterms)||repeat);
     
     //    short temp,counter=0;
     //    do
