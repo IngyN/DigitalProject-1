@@ -42,7 +42,15 @@ void Table2:: reduce()
 {
     this->display();
     
-    while ((findEssentialPrimeImplicants())&&(reduceDominatingColumns())&&(reduceDominatingRows()));
+    bool flag = true;
+    while (flag)
+    {
+        bool f1 = findEssentialPrimeImplicants();
+        bool f2 = reduceDominatingColumns();
+        bool f3 = reduceDominatingRows();
+        
+        flag = !(f1 && f2 && f3);
+    }
     
     this->displayEssentials();
 
@@ -55,8 +63,8 @@ bool Table2::reduceDominatingRows()
     
     for(int i=0; i<primeImplicants.size();i++)
     {
-        covered->clear();
-        covered2->clear();
+        if(covered) covered->clear();
+        if(covered2) covered2->clear();
         
         if(covered) delete covered;
         covered= primeImplicants[i].returnMinterms();
@@ -117,38 +125,38 @@ bool Table2::vectorFind(vector<short> * v, short e)
     return false;
 }
 
-bool Table2::reduceDominatingColumns()
+bool Table2::reduceDominatingColumns() // remove dominating
 {
     vector<short> * covered = new vector<short>, * covered2 = new vector <short>;
     bool done = true;
     for(int i=0; i<minterms.size();i++)
     {
-        covered->clear();
-        covered2->clear();
+        if(covered != nullptr) covered->clear();
+        if(covered2 != nullptr) covered2->clear();
         
         for (int k=0; k<primeImplicants.size(); k++)
-            if(primeImplicants[k].contains(minterms[i]))
-                covered->push_back(k);// column of minterm [i]
+            if(primeImplicants[k].contains(minterms[i]) && table[i][k])
+                covered->push_back(k);// include all the indeces of the implicants that cover minterm [i]
         
         for(int j=i+1;j<minterms.size(); j++)
         {
             for (int k=0; k<primeImplicants.size(); k++)
-                if(primeImplicants[k].contains(minterms[j]))
-                    covered2->push_back(k); // column of minterm [j]
+                if(primeImplicants[k].contains(minterms[j]) && table[j][k])
+                    covered2->push_back(k); // include all the indeces of the implicants that cover minterm [j]
             
             if(vectorDominates(covered, covered2))
                 // code comes here if covered2 dominates covered.
             {
-                // Delete column i
-                table[i].reset();
+                // Delete column j
+                table[j].reset();
                 done = false;
             }
             
             else if (vectorDominates(covered2, covered))
             {
                 // code comes here if covered dominates covered2.
-                // Delete column j
-                table[j].reset();
+                // Delete column i
+                table[i].reset();
                 done=false;
             }
         }
