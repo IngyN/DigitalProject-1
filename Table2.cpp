@@ -244,15 +244,21 @@ void Table2::display()
 
 void Table2::displayEssentials() const
 {
-    cout << "\nEssential prime implicants"<<endl;
-    for (Implicant i: Essentials)
+    if(Essentials.size()>0)
     {
-        (i).printImpl();
-        cout <<setw(5);
-        i.printRepresentation();
-        cout<<endl;
+        cout << "\nEssential prime implicants"<<endl;
+        for (Implicant i: Essentials)
+        {
+            (i).printImpl();
+            cout <<setw(5);
+            i.printRepresentation();
+            cout<<endl;
+        }
+        cout <<endl;
     }
-    cout <<endl;
+    else
+        cout << "There are no essential prime implicants";
+    
 }
 
 
