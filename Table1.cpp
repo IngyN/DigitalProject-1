@@ -62,7 +62,7 @@ void Table1:: display( vector<vector<Implicant>> & toDisplay)
             cout<<endl;
         }
         if(toDisplay[i].size()>0)
-        cout << " ------------------"<<endl;
+        cout << " --------------------------------"<<endl;
     }
     cout << endl;
 

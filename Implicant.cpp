@@ -92,10 +92,20 @@ void Implicant:: printBinary(short k)
     bitset<16> bit(k);
     cout << bit;
 }
+/*
+ 4
+ 1 2 3 4 5 6 7 8 9
+ n
+ 
+ 
+ 
+ */
 
 void Implicant:: printImpl()
 {
     // WE NEED TO ACCOUNT FOR THE Xs (differences)
+    //cout.width(15);
+
     cout << "(";
     set <short> :: iterator i= this->minterms.begin();
     cout << *i;
@@ -106,6 +116,9 @@ void Implicant:: printImpl()
         cout << "," << *i;
     }
     cout << ")";
+    
+    for (int i=numberOfMinterms()+2 +numberOfMinterms()-1; i<15; i++)
+        cout << ' ';
 }
 
 void Implicant:: printRepresentation()

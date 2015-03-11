@@ -206,12 +206,13 @@ bool Table2::findEssentialPrimeImplicants()
 void Table2::display()
 {
     cout <<endl;
-    
+    for (int i=0; i<15; i++) cout << ' ';
     for (vector <short> ::iterator i= minterms.begin(); i!=minterms.end(); i++)
     {
+        cout.width(5);
         if((i==minterms.begin()))
-            cout<< setw('\t')<<*i;
-        else cout << setw('\t') <<*i;
+            cout<<left <<*i;
+        else cout << left <<*i;
     }
     
     cout <<endl;
@@ -223,10 +224,11 @@ void Table2::display()
         
         for (int j=0; j <minterms.size(); j++ )
         {
+            cout.width(5);
             if(table [j][i]==0)
-                cout << "\t  ";
+                cout << left<< " ";
             else
-                cout <<"\t @";
+                cout <<left<<"@";
         }
         cout <<endl;
     }
